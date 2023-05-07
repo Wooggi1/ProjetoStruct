@@ -5,8 +5,18 @@
 int main() {
     char opcao;
 
-    AbrirMenu();
-    scanf(" %c", &opcao);
+    while (opcao != '0'){
+        AbrirMenu();
+        scanf(" %c", &opcao);
 
-    printf("%c", opcao);
+        switch (opcao)
+        {
+        case '1':
+            AdicionarUsuario();
+            break;
+        
+        default:
+            break;
+        }
+    }
 }
