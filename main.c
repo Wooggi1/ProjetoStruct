@@ -17,7 +17,9 @@ int main() {
         case '1':
             AdicionarUsuario();
             break;
-        
+        case '2':
+            EditarUsuario();
+            break;
         default:
             break;
         }
