@@ -29,6 +29,9 @@ int main() {
         case '5':
             ImprimirUsuarios();
             break;
+        case '6':
+            BackUp();
+            break;
         default:
             break;
         }

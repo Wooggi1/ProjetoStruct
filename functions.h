@@ -314,13 +314,47 @@ int BackUp(){
             strcpy(usersBackup[i].endereco, users[i].endereco);
             usersBackup[i].altura = users[i].altura;
             usersBackup[i].vacina = users[i].vacina;
-
-            printf("BackUp concluido com sucesso\n");
-
-            return 0;
         }
+        
+        printf("BackUp concluido com sucesso\n");
+       
+        return 0;
     }
     else if(certeza == 2){
         return 0;
+    }
+    else {
+        printf("Opcao invalida\n");
+        return -1;
+    }
+}
+
+int RestaurarDados(){
+    int certeza;
+
+    printf("tem certeza que deseja restaurar dados?\n1 - sim 2 - nao\n");
+    scanf("%d", &certeza);
+
+    if(certeza == 1){
+        for(int i = 0; i < numUsuarios; i++){
+            users[i].id = usersBackup[i].id;
+            strcpy(users[i].nomeCompleto, usersBackup[i].nomeCompleto);
+            strcpy(users[i].email, usersBackup[i].email);
+            strcpy(users[i].sexo, usersBackup[i].sexo);
+            strcpy(users[i].endereco, usersBackup[i].endereco);
+            users[i].altura = usersBackup[i].altura;
+            users[i].vacina = usersBackup[i].vacina;
+        }
+        
+        printf("Restauracao concluido com sucesso\n");
+       
+        return 0;
+    }
+    else if(certeza == 2){
+        return 0;
+    }
+    else {
+        printf("Opcao invalida\n");
+        return -1;
     }
 }
