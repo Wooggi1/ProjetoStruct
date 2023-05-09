@@ -20,6 +20,8 @@ typedef struct tUsuario {
 
 Usuario users[MAX_USUARIOS];
 
+Usuario usersBackup[MAX_USUARIOS];
+
 void AbrirMenu(){
 
     printf("1 - Adicionar Usuario\n");
@@ -294,5 +296,31 @@ int ImprimirUsuarios(){
         printf("endereco: %s\n", users[i].endereco);
         printf("altura: %.2lf\n", users[i].altura);
         printf("status de vacinacao: %d\n", users[i].vacina);
+    }
+}
+
+int BackUp(){
+    int certeza;
+
+    printf("tem certeza que deseja fazer backup?\n1 - sim 2 - nao\n");
+    scanf("%d", &certeza);
+
+    if(certeza == 1){
+        for(int i = 0; i < numUsuarios; i++){
+            usersBackup[i].id = users[i].id;
+            strcpy(usersBackup[i].nomeCompleto, users[i].nomeCompleto);
+            strcpy(usersBackup[i].email, users[i].email);
+            strcpy(usersBackup[i].sexo, users[i].sexo);
+            strcpy(usersBackup[i].endereco, users[i].endereco);
+            usersBackup[i].altura = users[i].altura;
+            usersBackup[i].vacina = users[i].vacina;
+
+            printf("BackUp concluido com sucesso\n");
+
+            return 0;
+        }
+    }
+    else if(certeza == 2){
+        return 0;
     }
 }
