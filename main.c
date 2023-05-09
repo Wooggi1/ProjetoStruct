@@ -2,8 +2,11 @@
 #include "functions.h"
 #include <string.h>
 
+void AbrirMenu();
+int AdicionarUsuario();
+
 int main() {
-    char opcao;
+    char opcao = ' ';
 
     while (opcao != '0'){
         AbrirMenu();
