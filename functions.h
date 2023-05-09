@@ -149,7 +149,7 @@ int EditarUsuario(){
     printf("Digite o email do usuario: ");
     scanf(" %[^\n]", email);
 
-    for(int i = 0; i < MAX_USUARIOS; i++){
+    for(int i = 0; i < numUsuarios + 1; i++){
         if(strcmp(users[i].email, email) == 0){
 
             printf("nome: %s\n", users[i].nomeCompleto);
@@ -214,4 +214,47 @@ int EditarUsuario(){
     }
     printf("Usuario nao encontrado.\n");
     return 0;
+}
+
+int ExcluirUsuario(){
+    char email[100];
+    int validacao = 1, certeza = 0;
+
+    printf("Digite o email do usuario: ");
+    scanf(" %[^\n]", email);
+
+    for(int i = 0; i < numUsuarios; i++){
+        if(strcmp(users[i].email, email) == 0){
+
+            printf("nome: %s\n", users[i].nomeCompleto);
+            printf("sexo: %s\n", users[i].sexo);
+            printf("endereco: %s\n", users[i].endereco);
+            printf("altura: %.2lf\n", users[i].altura);
+            printf("status de vacinacao: %d\n", users[i].vacina);
+
+            printf("Tem certeza que deseja excluir esse usuario?\n1 - sim 2 - nao\n");
+            scanf("%d", &certeza);
+
+            if(certeza == 1){
+                users[i].id = 0;
+                memset(users[i].email, 0, sizeof(users[i].email));
+                memset(users[i].nomeCompleto, 0, sizeof(users[i].nomeCompleto));
+                memset(users[i].sexo, 0, sizeof(users[i].sexo));
+                memset(users[i].endereco, 0, sizeof(users[i].endereco));
+                users[i].altura = 0;
+                users[i].vacina = 0;
+                numUsuarios--;
+                
+                for (int j = i + 1; j < numUsuarios; j++){
+                    users[j - 1] = users [j];
+                }
+                return 0;
+            }
+            else if(certeza == 2){
+                return 0;
+            }
+        }
+    }
+    printf("Usuario nao encontrado\n");
+    return -1;
 }
