@@ -2,5 +2,5 @@
 > Feito em C
 >> Utilizando Vetor, Funções e Struct
 
-# Autoria de Thiago da Silva Rodrigues
-# Professora Joyce Siqueira
+## Autoria de Thiago da Silva Rodrigues
+## Professora Joyce Siqueira
