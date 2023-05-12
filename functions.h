@@ -62,7 +62,6 @@ int AdicionarUsuario(){
             }
         }
     }while (validacao == 1);
-    validacao = 1;
 
     printf("Digite seu nome completo: ");
     scanf(" %[^\n]", nome);
@@ -70,36 +69,30 @@ int AdicionarUsuario(){
     printf("Digite seu email: ");
     scanf(" %[^\n]", email);
 
-    while(validacao == 1){
-        
+    do{
+        validacao = 1;
         for (int i = 0; i < strlen(email); i++)
         {
             if (email[i] == '@'){
-                encontrado = 1;
+                validacao = 0;
                 break;
             }
         }
-        if (encontrado == 1){
-            validacao = 0;
+
+        if(validacao == 1){
+            printf("Email invalido, tente novamente: ");
+            scanf(" %[^\n]", email);
         }
-        else{
-            printf("Email invalido tente novamente.\n");
-        }
-    }
-    validacao = 1;
+    }while(validacao == 1);
 
     printf("Digite seu sexo(Masculino/Feminino/Indefinido): ");
     scanf("%s", sexo);
     sexo[0] = toupper(sexo[0]);
 
-    while(validacao == 1){
-        if(strcmp(sexo, "Masculino") == 0 || strcmp(sexo, "Feminino") == 0 || strcmp(sexo, "Indefinido") == 0)
-            break;
-        else{
+    while(!(strcmp(sexo, "Masculino") == 0 || strcmp(sexo, "Feminino") == 0 || strcmp(sexo, "Indefinido") == 0)){
             printf("Sexo invalido tente novamente: ");
             scanf("%s", sexo);
             sexo[0] = toupper(sexo[0]);
-        }
     }
 
     printf("Digite seu endereco: ");
@@ -107,27 +100,19 @@ int AdicionarUsuario(){
 
     printf("Digite sua altura: ");
     scanf("%lf", &altura);
-    while(validacao == 1){
-        if(altura > 2 || altura < 1){
+    while(altura > 2 || altura < 1){
             printf("Altura invalida, lembre-se a medida esta em metros\n");
             printf("Tente novamente: ");
             scanf("%lf", &altura);
-        }
-        else{
-            break;
-        }
     }
+
     printf("Digite o estado de sua vacinacao (1 = Vacinado/ 0 = Nao vacinado): ");
     scanf("%d", &vacina);
     
-    while(validacao == 1){
-        if(vacina == 1 || vacina == 0)
-            break;
-        else{
+    while(!(vacina == 1 || vacina == 0)){
             printf("So sao aceitos 1 e 0 como valor\n");
             printf("Tente novamente: ");
             scanf("%d", &vacina);
-        }
     }
 
     Usuario tempUser;
