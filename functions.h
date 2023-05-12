@@ -74,7 +74,7 @@ int AdicionarUsuario(){
         for (int i = 0; i < strlen(email); i++)
         {
             if (email[i] == '@'){
-                validacao = 0;
+                encontrado = 1;
                 break;
             }
         }
@@ -83,7 +83,11 @@ int AdicionarUsuario(){
             printf("Email invalido, tente novamente: ");
             scanf(" %[^\n]", email);
         }
-    }while(validacao == 1);
+        else{
+            printf("Email invalido tente novamente.\n");
+        }
+    }
+    while(validacao = 1);
 
     printf("Digite seu sexo(Masculino/Feminino/Indefinido): ");
     scanf("%s", sexo);

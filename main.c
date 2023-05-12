@@ -35,6 +35,8 @@ int main() {
         case '7':
             RestaurarDados();
             break;
+        case '0':
+            break;
         default:
             printf("Opcao invalida\n");
             break;
