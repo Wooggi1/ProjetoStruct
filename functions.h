@@ -52,7 +52,7 @@ int AdicionarUsuario(){
         for(int i = 0; i < numUsuarios; i++)
         {
             if(users[i].id == id){
-                printf("Usuario ja existe\n");
+                printf("ID ja existe\n");
                 id = 00000;
                 validacao = 1;
                 break;
@@ -87,12 +87,12 @@ int AdicionarUsuario(){
     while(validacao == 1);
 
     printf("Digite seu sexo(Masculino/Feminino/Indefinido): ");
-    scanf("%s", sexo);
+    scanf(" %[^\n]", sexo);
     sexo[0] = toupper(sexo[0]);
 
     while(!(strcmp(sexo, "Masculino") == 0 || strcmp(sexo, "Feminino") == 0 || strcmp(sexo, "Indefinido") == 0)){
             printf("Sexo invalido tente novamente: ");
-            scanf("%s", sexo);
+            scanf(" %[^\n]", sexo);
             sexo[0] = toupper(sexo[0]);
     }
 
@@ -101,6 +101,7 @@ int AdicionarUsuario(){
 
     printf("Digite sua altura: ");
     scanf("%lf", &altura);
+
     while(altura > 2 || altura < 1){
             printf("Altura invalida, lembre-se a medida esta em metros\n");
             printf("Tente novamente: ");
@@ -132,7 +133,6 @@ int AdicionarUsuario(){
 
 int EditarUsuario(){
     char email[100];
-    int validacao = 1;
 
     printf("Digite o email do usuario: ");
     scanf(" %[^\n]", email);
@@ -153,14 +153,10 @@ int EditarUsuario(){
             scanf("%s", users[i].sexo);
             users[i].sexo[0] = toupper(users[i].sexo[0]);
 
-            while(validacao == 1){
-                if(strcmp(users[i].sexo, "Masculino") == 0 || strcmp(users[i].sexo, "Feminino") == 0 || strcmp(users[i].sexo, "Indefinido") == 0)
-                    break;
-                else{
+            while(!(strcmp(users[i].sexo, "Masculino") == 0 || strcmp(users[i].sexo, "Feminino") == 0 || strcmp(users[i].sexo, "Indefinido") == 0)){
                     printf("Sexo invalido tente novamente: ");
                     scanf("%s", users[i].sexo);
                     users[i].sexo[0] = toupper(users[i].sexo[0]);
-                }
             }
 
             printf("Digite seu endereco: ");
@@ -168,27 +164,20 @@ int EditarUsuario(){
 
             printf("Digite sua altura: ");
             scanf("%lf", &users[i].altura);
-            while(validacao == 1){
-                if(users[i].altura > 2 || users[i].altura < 1){
+
+            while(users[i].altura > 2 || users[i].altura < 1){
                     printf("Altura invalida, lembre-se a medida esta em metros\n");
                     printf("Tente novamente: ");
                     scanf("%lf", &users[i].altura);
-                }
-                else{
-                    break;
-                }
             }
+
             printf("Digite o estado de sua vacinacao (1 = Vacinado/ 0 = Nao vacinado): ");
             scanf("%d", &users[i].vacina);
     
-            while(validacao == 1){
-                if(users[i].vacina == 1 || users[i].vacina == 0)
-                    break;
-                else{
+            while(!(users[i].vacina == 1 || users[i].vacina == 0)){
                     printf("So sao aceitos 1 e 0 como valor\n");
                     printf("Tente novamente: ");
                     scanf("%d", &users[i].vacina);
-                }
             }
 
             printf("novo nome: %s\n", users[i].nomeCompleto);
@@ -200,13 +189,13 @@ int EditarUsuario(){
             return 0;
         }
     }
-    printf("Usuario nao encontrado.\n");
+    printf("Usuario nao encontrado\n");
     return 0;
 }
 
 int ExcluirUsuario(){
     char email[100];
-    int validacao = 1, certeza = 0;
+    int certeza = 0;
 
     printf("Digite o email do usuario: ");
     scanf(" %[^\n]", email);
@@ -220,7 +209,7 @@ int ExcluirUsuario(){
             printf("altura: %.2lf\n", users[i].altura);
             printf("status de vacinacao: %d\n", users[i].vacina);
 
-            printf("Tem certeza que deseja excluir esse usuario?\n1 - sim 2 - nao\n");
+            printf("Tem certeza que deseja excluir esse usuario?\n1 - sim 0 - nao\n");
             scanf("%d", &certeza);
 
             if(certeza == 1){
@@ -236,9 +225,11 @@ int ExcluirUsuario(){
                 for (int j = i + 1; j < numUsuarios; j++){
                     users[j - 1] = users [j];
                 }
+                printf("Usuario excluido com sucesso!\n");
                 return 0;
             }
-            else if(certeza == 2){
+            else if(certeza == 0){
+                printf("Saindo da funcao\n");
                 return 0;
             }
         }
@@ -274,21 +265,21 @@ int BuscarPorEmail(){
 
 int ImprimirUsuarios(){
     for(int i = 0; i < numUsuarios; i++){
-        printf("\n\n----------USUARIO %d----------\n", i+1);
+        printf("\n----------USUARIO %d----------\n", i+1);
         printf("id:  %d\n", users[i].id);
         printf("nome: %s\n", users[i].nomeCompleto);
         printf("email: %s\n", users[i].email);
         printf("sexo: %s\n", users[i].sexo);
         printf("endereco: %s\n", users[i].endereco);
         printf("altura: %.2lf\n", users[i].altura);
-        printf("status de vacinacao: %d\n", users[i].vacina);
+        printf("status de vacinacao: %d\n\n", users[i].vacina);
     }
 }
 
 int BackUp(){
     int certeza;
 
-    printf("tem certeza que deseja fazer backup?\n1 - sim 2 - nao\n");
+    printf("tem certeza que deseja fazer backup?\n1 - sim 0 - nao\n");
     scanf("%d", &certeza);
 
     if(certeza == 1){
@@ -306,7 +297,8 @@ int BackUp(){
        
         return 0;
     }
-    else if(certeza == 2){
+    else if(certeza == 0){
+        printf("BackUp cancelado\n");
         return 0;
     }
     else {
@@ -318,7 +310,7 @@ int BackUp(){
 int RestaurarDados(){
     int certeza;
 
-    printf("tem certeza que deseja restaurar dados?\n1 - sim 2 - nao\n");
+    printf("tem certeza que deseja restaurar dados?\n1 - sim 0 - nao\n");
     scanf("%d", &certeza);
 
     if(certeza == 1){
@@ -336,7 +328,8 @@ int RestaurarDados(){
        
         return 0;
     }
-    else if(certeza == 2){
+    else if(certeza == 0){
+        printf("Restauracao cancelada\n");
         return 0;
     }
     else {
