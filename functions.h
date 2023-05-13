@@ -223,8 +223,15 @@ int ExcluirUsuario(){
                 numUsuarios--;
                 
                 for (int j = i + 1; j < numUsuarios; j++){
-                    users[j - 1] = users [j];
+                    users[j - 1].id = users[j].id;
+                    strcpy(users[j - 1].email, users[j].email);
+                    strcpy(users[j - 1].nomeCompleto, users[j].nomeCompleto);
+                    strcpy(users[j - 1].sexo, users[j].sexo);
+                    strcpy(users[j - 1].endereco, users[j].endereco);
+                    users[j - 1].altura = users[j].altura;
+                    users[j - 1].vacina = users[j].vacina;
                 }
+
                 printf("Usuario excluido com sucesso!\n");
                 return 0;
             }
